@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
 using PDCore.Interfaces;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Pumox.Test.BLL.Models
+namespace Pumox.Test.Entities.Briefs
 {
     public class CompanyBrief : IHasRowVersion
     {
@@ -12,8 +11,6 @@ namespace Pumox.Test.BLL.Models
 
         [Range(1, int.MaxValue, ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
         public int EstablishmentYear { get; set; }
-
-        public virtual ICollection<Employee> Employees { get; set; }
 
 
         [JsonIgnore]

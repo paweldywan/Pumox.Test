@@ -1,10 +1,16 @@
 ﻿using Microsoft.Web.Http;
 using Microsoft.Web.Http.Versioning;
 using Newtonsoft.Json;
+using PDCore.Repositories.Repo;
+using PDCoreNew.Services.Serv;
 using PDWebCore.Filters.WebApi;
 using PDWebCore.Handlers;
 using PDWebCore.Helpers.ModelBinding.WebApi;
+using PDWebCore.Loggers;
+using Pumox.Test.BLL.Models;
+using Pumox.Test.DAL;
 using System;
+using System.Web.Configuration;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 
@@ -50,6 +56,15 @@ namespace Pumox.Test.Web
             config.MapHttpAttributeRoutes();
 
             DefineRoutes(config);
+
+
+            ContainerConfig.RegisterContainer(config);
+
+            LogService.EnableLogInDb<PumoxTestContext, SqlServerWebLogger>();
+
+            log4net.Config.XmlConfigurator.Configure();
+
+            SqlRepository.IsLoggingEnabledByDefault = bool.Parse(WebConfigurationManager.AppSettings["IsLoggingEnabledByDefault"]);
         }
 
         private static void DefineRoutes(HttpConfiguration config)

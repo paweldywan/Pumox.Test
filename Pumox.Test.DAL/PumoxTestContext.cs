@@ -1,5 +1,4 @@
 ﻿using PDWebCore.Context;
-using Pumox.Test.BLL.Models;
 using Pumox.Test.DAL.Configuration;
 using Pumox.Test.DAL.Entities;
 using Pumox.Test.DAL.SampleData;
@@ -8,6 +7,8 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace Pumox.Test.DAL
 {
+
+    [DbConfigurationType(typeof(PumoxTestDbConfiguration))]
     public class PumoxTestContext : MainWebDbContext<ApplicationUser>
     {
         public PumoxTestContext() : base("PumoxTestContext")

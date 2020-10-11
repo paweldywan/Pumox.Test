@@ -1,7 +1,10 @@
 ﻿using PDCore.Extensions;
+using PDCore.Models;
 using PDWebCore;
+using Pumox.Test.BLL.Entities.DTO;
 using Pumox.Test.BLL.Models;
 using Pumox.Test.DAL.Contracts;
+using Pumox.Test.DAL.Entities;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -33,8 +36,16 @@ namespace Pumox.Test.Web.Controllers
             return this.Forbid();
         }
 
+        [ActionName("search")]
+        [AllowAnonymous]
+        [IdentityBasicAuthentication(false)]
+        public async Task<SearchResult<CompanyDTO>> Post(CompanySearch companySearch)
+        {
+            return (await pumoxTestUow.Companies.GetDTO(companySearch)).GetSearchResult();
+        }
+
         [ActionName("update")]
-        public async Task<IHttpActionResult> Put(long id, CompanyBrief model)
+        public async Task<IHttpActionResult> Put(long id, CompanyDTO model)
         {
             var company = await pumoxTestUow.Companies.FindByIdAsync(id, false);
 
@@ -43,7 +54,7 @@ namespace Pumox.Test.Web.Controllers
                 return NotFound();
             }
 
-            var result = await pumoxTestUow.Companies.SaveUpdatedWithOptimisticConcurrencyAsync<CompanyBrief>(model, company, User, ModelState.AddModelError);
+            var result = await pumoxTestUow.Companies.SaveUpdatedWithOptimisticConcurrencyAsync<CompanyDTO>(model, company, User, ModelState.AddModelError);
 
             if (result != null)
             {

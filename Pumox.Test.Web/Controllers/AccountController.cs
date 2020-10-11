@@ -7,8 +7,8 @@ using System.Web.Http;
 
 namespace Pumox.Test.Web.Controllers
 {
+    [Authorize]
     [IdentityBasicAuthentication]
-    [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
         private readonly ApplicationUserManager userManager;
@@ -20,15 +20,10 @@ namespace Pumox.Test.Web.Controllers
             this.pumoxTestTranslator = pumoxTestTranslator;
         }
 
-        [Route]
-        public string Get()
-        {
-            return "aaa";
-        }
-
         // POST api/Account/Register
+        [AllowAnonymous]
         [IdentityBasicAuthentication(false)]
-        [Route("Register")]
+        [ActionName("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
@@ -44,7 +39,7 @@ namespace Pumox.Test.Web.Controllers
         }
 
         // POST api/Account/ChangePassword
-        [Route("ChangePassword")]
+        [ActionName("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
         {
             IdentityResult result = await userManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);

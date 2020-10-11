@@ -6,7 +6,7 @@ namespace Pumox.Test.BLL.Enums
     [JsonConverter(typeof(StringEnumConverter))]
     public enum JobTitle
     {
-        Administrator, 
+        Administrator = 1, 
 
         Developer, 
 

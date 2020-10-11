@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
-using Pumox.Test.BLL.Models;
+using Pumox.Test.BLL.Entities.Briefs;
+using Pumox.Test.BLL.Entities.DTO;
+using Pumox.Test.DAL.Entities;
 
 namespace Pumox.Test.DAL
 {
@@ -7,10 +9,13 @@ namespace Pumox.Test.DAL
     {
         public PumoxTestMappingProfile()
         {
-            CreateMap<CompanyBrief, Company>()
+            CreateMap<CompanyDTO, Company>()
                 .ReverseMap();
 
             CreateMap<Company, Company>();
+
+            CreateMap<Employee, EmployeeBrief>()
+                .ReverseMap();
         }
     }
 }

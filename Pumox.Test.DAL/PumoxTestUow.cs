@@ -1,9 +1,8 @@
-﻿using PDCore.Repositories.IRepo;
-using PDCoreNew.Context.IContext;
+﻿using PDCoreNew.Context.IContext;
 using PDCoreNew.Factories.Fac.Repository;
 using PDCoreNew.UnitOfWork;
-using Pumox.Test.BLL.Models;
 using Pumox.Test.DAL.Contracts;
+using Pumox.Test.DAL.Repositories;
 
 namespace Pumox.Test.DAL
 {
@@ -13,6 +12,6 @@ namespace Pumox.Test.DAL
         {
         }
 
-        public ISqlRepositoryEntityFrameworkDisconnected<Company> Companies { get { return GetStandardRepoDisconnected<Company>(); } }
+        public ICompanyRepository Companies { get { return GetRepo<CompanyRepository>(); } }
     }
 }

@@ -87,7 +87,7 @@ namespace Pumox.Test.Web
                    .SingleInstance();
 
 
-            builder.RegisterType<FileLogger>()
+            builder.RegisterType<ConsoleLogger>()
                    .As<ILogger>()
                    .SingleInstance();
 

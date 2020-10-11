@@ -1,6 +1,4 @@
 ﻿using PDCore.Interfaces;
-using PDCore.Repositories.IRepo;
-using Pumox.Test.BLL.Models;
 
 namespace Pumox.Test.DAL.Contracts
 {
@@ -10,6 +8,6 @@ namespace Pumox.Test.DAL.Contracts
     public interface IPumoxTestUow : IUnitOfWork
     {
         // Repositories
-        ISqlRepositoryEntityFrameworkDisconnected<Company> Companies { get; }
+        ICompanyRepository Companies { get; }
     }
 }

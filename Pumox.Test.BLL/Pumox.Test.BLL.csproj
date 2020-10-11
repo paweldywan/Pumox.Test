@@ -46,10 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Briefs\EmployeeBrief.cs" />
+    <Compile Include="Entities\DTO\CompanyDTO.cs" />
     <Compile Include="Enums\JobTitle.cs" />
-    <Compile Include="Models\Company.cs" />
-    <Compile Include="Models\CompanyBrief.cs" />
-    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Entities\Briefs\CompanyBrief.cs" />
+    <Compile Include="Models\CompanySearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Translators\PumoxTestTranslator.cs" />
   </ItemGroup>
