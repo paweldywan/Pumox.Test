@@ -8,77 +8,77 @@ namespace Pumox.Test.Web.Models
 
     public class AddExternalLoginBindingModel
     {
-        [Required]
-        [Display(Name = "External access token")]
+        [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
+        [Display(Name = "ExternalAccessToken", ResourceType = typeof(Resources.Common))]
         public string ExternalAccessToken { get; set; }
     }
 
     public class ChangePasswordBindingModel
     {
-        [Required]
+        [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [Display(Name = "CurrentPassword", ResourceType = typeof(Resources.Common))]
         public string OldPassword { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
+        [StringLength(100, MinimumLength = 6, ErrorMessageResourceName = "StringLength_GreaterAndLess", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "NewPassword", ResourceType = typeof(Resources.Common))]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "ConfirmPassword", ResourceType = typeof(Resources.Common))]
+        [Compare("NewPassword", ErrorMessageResourceName = "Compare", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
         public string ConfirmPassword { get; set; }
     }
 
     public class RegisterBindingModel
     {
-        [Required]
+        [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
+        [StringLength(100, MinimumLength = 6, ErrorMessageResourceName = "StringLength_GreaterAndLess", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Password", ResourceType = typeof(Resources.Common))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "ConfirmPassword", ResourceType = typeof(Resources.Common))]
+        [Compare("Password", ErrorMessageResourceName = "Compare", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
         public string ConfirmPassword { get; set; }
     }
 
     public class RegisterExternalBindingModel
     {
-        [Required]
+        [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
 
     public class RemoveLoginBindingModel
     {
-        [Required]
-        [Display(Name = "Login provider")]
+        [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
+        [Display(Name = "LoginProvider", ResourceType = typeof(Resources.Common))]
         public string LoginProvider { get; set; }
 
-        [Required]
-        [Display(Name = "Provider key")]
+        [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
+        [Display(Name = "ProviderKey", ResourceType = typeof(Resources.Common))]
         public string ProviderKey { get; set; }
     }
 
     public class SetPasswordBindingModel
     {
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
+        [StringLength(100, MinimumLength = 6, ErrorMessageResourceName = "StringLength_GreaterAndLess", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "NewPassword", ResourceType = typeof(Resources.Common))]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "ConfirmPassword", ResourceType = typeof(Resources.Common))]
+        [Compare("NewPassword", ErrorMessageResourceName = "Compare", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
         public string ConfirmPassword { get; set; }
     }
 }

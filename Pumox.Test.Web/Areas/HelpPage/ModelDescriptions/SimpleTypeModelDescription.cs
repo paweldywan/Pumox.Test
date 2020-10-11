@@ -1,6 +1,0 @@
-namespace Pumox.Test.Web.Areas.HelpPage.ModelDescriptions
-{
-    public class SimpleTypeModelDescription : ModelDescription
-    {
-    }
-}

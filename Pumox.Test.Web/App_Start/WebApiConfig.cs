@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using Microsoft.Web.Http;
+using Microsoft.Web.Http.Versioning;
+using Newtonsoft.Json;
+using PDWebCore.Filters.WebApi;
+using PDWebCore.Handlers;
+using PDWebCore.Helpers.ModelBinding.WebApi;
+using System;
 using System.Web.Http;
-using Microsoft.Owin.Security.OAuth;
-using Newtonsoft.Json.Serialization;
+using System.Web.Http.ExceptionHandling;
 
 namespace Pumox.Test.Web
 {
@@ -12,17 +14,49 @@ namespace Pumox.Test.Web
     {
         public static void Register(HttpConfiguration config)
         {
+            config.Services.Replace(typeof(IExceptionHandler), new LogExceptionHandler());
+
+            config.BindParameter(typeof(DateTime), new UtcDateTimeModelBinder());
+            config.BindParameter(typeof(DateTime?), new UtcDateTimeModelBinder());
+
             // Web API configuration and services
-            // Configure Web API to use only bearer token authentication.
-            config.SuppressDefaultHostAuthentication();
-            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+
+            config.AddApiVersioning(cfg =>
+            {
+                cfg.DefaultApiVersion = new ApiVersion(1, 0);
+                cfg.AssumeDefaultVersionWhenUnspecified = true;
+                cfg.ReportApiVersions = true;
+                cfg.ApiVersionReader = ApiVersionReader.Combine(
+                                        new HeaderApiVersionReader("X-Version"),
+                                        new QueryStringApiVersionReader("ver"));
+            });
+
+            // Remove Xml formatters. This means when we visit an endpoint from a browser,
+            // Instead of returning Xml, it will return Json.
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+
+            // Use camel case for JSON data.
+            //config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            // Convert all dates to UTC;
+            config.Formatters.JsonFormatter.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+
+            // Add model validation, globally
+            config.Filters.Add(new ValidationActionFilterAttribute());
+
+            //config.Filters.Add(new ModelValidateNotNullFilterAttribute());
 
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            DefineRoutes(config);
+        }
+
+        private static void DefineRoutes(HttpConfiguration config)
+        {
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
         }
